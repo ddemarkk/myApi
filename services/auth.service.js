@@ -14,7 +14,7 @@ class AuthService {
         const user = findUser(decoded.id);
 
         if (!user) {
-            throw new Error('User exist.');
+            throw new Error('User not exist.');
         }
 
         req.decoded = decoded;
