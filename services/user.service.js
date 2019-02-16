@@ -9,7 +9,7 @@ class UserService {
 
     let user;
 
-    if (newUser.password === newUser.confirmPassword) {
+    if (newUser.password.length >= 8 && newUser.password === newUser.confirmPassword) {
       user = await new User({ ...newUser, password });
     }
 
