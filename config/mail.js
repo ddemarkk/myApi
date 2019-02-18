@@ -1,8 +1,9 @@
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
-
+const { verifyJWT } = require('./jwt.service')
 class Mailer {
   static sendEmail(token) {
+    let email = verifyJWT(token, process.env.SECRET)
     let transporter = nodemailer.createTransport(
       smtpTransport({
         service: "gmail",
@@ -17,11 +18,11 @@ class Mailer {
     );
 
     let mailOptions = {
-        from: 'tosterrr9@gmail.com',
-        to: process.env.NODEMAILER_EMAIL,
-        subject: '123',
-        text: `Verify your password here http://localhost:3000/user/${token}`
-      }
+      from: 'tosterrr9@gmail.com',
+      to: email,
+      subject: '123',
+      text: `Verify your password here http://localhost:3000/user/${token}`
+    }
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {

@@ -9,14 +9,14 @@ class UserService {
 
     let user;
 
-    if (newUser.password === newUser.confirmPassword) {
+    if (newUser.password.length >= 8 && newUser.password === newUser.confirmPassword) {
       user = await new User({ ...newUser, password });
     }
 
     if (!user) {
-        throw new Error('User not created.');
+      throw new Error('User not created.');
     }
-    
+
     const accessToken = generateJWT(newUser);
     user.save()
 
@@ -25,7 +25,7 @@ class UserService {
 
   static async findUser(id) {
     const user = await User.findById(id);
-  
+
     if (!user) throw new Error("User doesn't exist");
     return user;
   }
@@ -39,20 +39,20 @@ class UserService {
   }
 
   static async updateUser(id, newUser) {
-    const {password, ...updatedUser} = newUser;
+    const { password, ...updatedUser } = newUser;
     const user = await User.findByIdAndUpdate(id, updatedUser);
-    
+
     if (!user) throw new Error("User doesn't exist");
 
     return user;
   }
 
-  static async loginUser({email, password}) {
+  static async loginUser({ email, password }) {
     const user = await User.findOne({ email });
     const match = await bcrypt.compare(password, user.password)
 
-    if(!match) throw new Error('User doesn\'t exist');
-    
+    if (!match) throw new Error('User doesn\'t exist');
+
     const accessToken = generateJWT(user.toJSON());
 
     return accessToken;
@@ -68,17 +68,17 @@ class UserService {
 
     const updatedUser = { ...user._doc, password };
 
-    const userToken = generateJWT(updatedUser); 
+    const userToken = generateJWT(updatedUser);
 
-    if(!user) throw new Error('User doesn\'t exit');
-    
-    if(passwords.oldPassword === passwords.confirmPassword  
+    if (!user) throw new Error('User doesn\'t exit');
+
+    if (passwords.oldPassword === passwords.confirmPassword
       && passwords.newPassword !== passwords.oldPassword
       && match) {
-        sendEmail(userToken);
+      sendEmail(userToken);
     } else throw new Error('New password or confirmed password are incorrect');
-    
-    
+
+
     return updatedUser;
   }
 
@@ -90,7 +90,7 @@ class UserService {
 
   static generateHashPassword(password) {
     const salt = bcrypt.genSaltSync(10);
-    
+
     return bcrypt.hashSync(password, salt);
   }
 }
