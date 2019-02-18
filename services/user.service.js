@@ -56,6 +56,7 @@ class UserService {
     const accessToken = generateJWT(user.toJSON());
 
     return accessToken;
+    
   }
 
   static async changePassword(id, passwords) {
