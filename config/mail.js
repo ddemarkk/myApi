@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
-const { verifyJWT } = require('./jwt.service')
+const { verifyJWT } = require('../services/jwt.service')
 class Mailer {
   static sendEmail(token) {
     let email = verifyJWT(token, process.env.SECRET)
