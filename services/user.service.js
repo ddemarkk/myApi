@@ -23,8 +23,9 @@ class UserService {
     return accessToken;
   }
 
-  static async findUser(id) {
-    const user = await User.findById(id);
+  static async findUser(authToken) {
+    const decodedUser = verifyJWT(authToken, process.env.SECRET)
+    const user = await User.findById(decodedUser._id);
 
     if (!user) throw new Error("User doesn't exist");
     return user;
@@ -39,7 +40,7 @@ class UserService {
   }
 
   static async updateUser(id, newUser) {
-    const { password, ...updatedUser } = newUser;
+    const {password, ...updatedUser} = newUser;
     const user = await User.findByIdAndUpdate(id, updatedUser);
 
     if (!user) throw new Error("User doesn't exist");
@@ -61,7 +62,7 @@ class UserService {
 
   static async changePassword(id, passwords) {
     const password = await UserService.generateHashPassword(passwords.newPassword);
-
+        
     const user = await User.findById(id);
 
     const match = await bcrypt.compare(passwords.oldPassword, user.password);

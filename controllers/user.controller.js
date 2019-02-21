@@ -10,7 +10,7 @@ const {
 
 exports.createUser = async (req, res) => res.json(await createUser(req.body));
 
-exports.findUser = async (req, res) => res.json(await findUser(req.params.id, req.body));
+exports.findUser = async (req, res) => res.json(await findUser(req.params.authToken, req.body));
 
 exports.deleteUser = async (req, res) => res.json(await deleteUser(req.params.id));
 

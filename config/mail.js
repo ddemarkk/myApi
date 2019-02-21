@@ -19,7 +19,7 @@ class Mailer {
 
     let mailOptions = {
       from: 'tosterrr9@gmail.com',
-      to: email,
+      to: "ddemarkk@gmail.com",
       subject: '123',
       text: `Verify your password here http://localhost:3000/user/${token}`
     }
