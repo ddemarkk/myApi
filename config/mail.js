@@ -21,7 +21,7 @@ class Mailer {
       from: 'tosterrr9@gmail.com',
       to: "ddemarkk@gmail.com",
       subject: '123',
-      text: `Verify your password here http://localhost:3000/user/${token}`
+      text: `Verify your password here http://localhost:3000/${token}`
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
