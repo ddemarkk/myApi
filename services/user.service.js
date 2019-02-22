@@ -86,7 +86,7 @@ class UserService {
   static async verifyPassword(authToken) {
     const user = verifyJWT(authToken, process.env.SECRET);
     //const updatedUser = {...user,}
-    await User.findByIdAndUpdate(user.id, user)
+    await User.findByIdAndUpdate(user.id, {password: user.password})
     return user;
   }
 
