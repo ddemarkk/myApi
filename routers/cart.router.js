@@ -8,7 +8,7 @@ const {
 
 router.post('/:id', createCart)
 router.get('/:id', showItems);
-router.post('/:id', putItem);
+router.put('/:id', putItem);
 
 
 module.exports = router;
