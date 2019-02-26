@@ -1,8 +1,8 @@
 const Cart = require('../models/cart.model');
 
 class CartService {
-    static async createCart(id) {
-        const cart = await new Cart({items:[], id});
+    static async createCart(userID) {
+        const cart = await new Cart({items:[], userID});
         
         if(!cart) {throw new Error('Cart did not created');}
 
