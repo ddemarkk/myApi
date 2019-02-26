@@ -25,6 +25,11 @@ const BookSchema = new mongoose.Schema({
     pages: {
         type: Number,
         minlength: 1
+    },
+
+    inUserCart: {
+        type: Array,
+        minlength: 0
     }
 })
 

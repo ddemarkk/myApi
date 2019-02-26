@@ -47,6 +47,19 @@ class BookService {
 
     }
 
+    static async addToCart(id, userID) {
+        const book = await Book.findById(id);
+
+        const addedBook = book.inUserCart.push(userID);
+
+        await Book.findByIdAndUpdate(id, addedBook)
+        console.log(book.inUserCart)
+        if(!book) throw new Error('Book is not exist');
+
+        return addedBook;
+
+    }
+
 }
 
 module.exports = BookService;

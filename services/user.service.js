@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
-const { generateJWT, verifyJWT } = require('./jwt.service')
+const { generateJWT, verifyJWT } = require('./jwt.service');
 const { sendEmail } = require('../config/mail');
 
 class UserService {

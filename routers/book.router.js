@@ -5,7 +5,8 @@ const {
     deleteBook,
     updateBook,
     getBooks,
-    getBookById
+    getBookById,
+    addToCart
 } = require('../controllers/book.controller');
 
 const {
@@ -14,6 +15,7 @@ const {
 
 router.post('/', auth, createBook);
 router.put('/:id', auth, updateBook);
+router.put('/addtocart/:id', addToCart)
 router.delete('/:id', auth, deleteBook);
 router.get('/:id', getBookById);
 router.get('/', getBooks);
