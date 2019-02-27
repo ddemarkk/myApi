@@ -4,7 +4,7 @@ class CartService {
     static async createCart(userID) {
         const cart = await new Cart({items:[], userID});
         
-        if(!cart) {throw new Error('Cart did not created');}
+        if(!cart) throw new Error('Cart did not created');
 
         cart.save()
         
