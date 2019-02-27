@@ -10,7 +10,7 @@ class CartService {
         
             if(!createdCart) throw new Error('Cart did not created');
 
-            cart.save()
+            createdCart.save()
 
             return createdCart;
         }
