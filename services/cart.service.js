@@ -2,13 +2,18 @@ const Cart = require('../models/cart.model');
 
 class CartService {
     static async createCart(userID) {
-        const cart = await new Cart({userID, items:[]});
+        const cart = await Cart.findOne(userID);
         
-        if(!cart) throw new Error('Cart did not created');
+        if(!cart) {
+            
+            const createdCart = await new Cart({userID, items:[]});
+        
+            if(!createdCart) throw new Error('Cart did not created');
 
-        cart.save()
-        
-        return cart;
+            cart.save()
+
+            return createdCart;
+        }
     }
 
     static async putItem(id, item) {
